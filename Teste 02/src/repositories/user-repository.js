@@ -13,14 +13,22 @@ async function create(email, senha, nome, telefones) {
 async function createSession(token, userId){
   return prisma.session.create({
     data: {
-      token, userId
+      token, userId,
     }
   })
+}
+async function findEmail(email) {
+  return await prisma.users.findFirst({
+    where: {
+      email,
+    },
+  });
 }
 
 const userRepository = {
   create,
   createSession,
+  findEmail
 };
 
 export default userRepository;

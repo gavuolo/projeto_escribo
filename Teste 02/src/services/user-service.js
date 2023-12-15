@@ -14,6 +14,29 @@ async function createToken(user){
   const session = await userRepository.createSession(token, user.id)
   return token, session
 }
+export async function sessionPost(email, senha){
+  const user = await findEmail(email)
+  console.log(user.id)
+  
+  await validatePassword(senha, user.senha)
+  const token = await createToken(user)    
+  const response = {
+      id: user.id,
+      email: user.email,
+      token
+  }
+  return response
+}
+async function findEmail(email){
+  const emailExist = await userRepository.findEmail(email);
+  return emailExist
+}
 
+async function validatePassword(senha, userSenha){
+  const passwordValidation = await bcrypt.compare(senha, userSenha)
+  if(!passwordValidation){
+     throw new Error("Senha errada")
+  }
+}
 
-export default { createUser };
+export default { createUser, sessionPost };
