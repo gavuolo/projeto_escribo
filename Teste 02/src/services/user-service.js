@@ -39,4 +39,9 @@ async function validatePassword(senha, userSenha){
   }
 }
 
-export default { createUser, sessionPost };
+async function getUser(userId){
+  const user = await userRepository.findUserById(userId)
+  return user
+}
+
+export default { createUser, sessionPost , getUser};

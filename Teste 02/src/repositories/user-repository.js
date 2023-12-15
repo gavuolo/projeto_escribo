@@ -1,6 +1,7 @@
 import prisma from "../config/database.js";
 
 async function create(email, senha, nome, telefones) {
+console.log(telefones)
   return await prisma.users.create({
     data: {
       email,
@@ -10,12 +11,13 @@ async function create(email, senha, nome, telefones) {
     },
   });
 }
-async function createSession(token, userId){
+async function createSession(token, userId) {
   return prisma.session.create({
     data: {
-      token, userId,
-    }
-  })
+      token,
+      userId,
+    },
+  });
 }
 async function findEmail(email) {
   return await prisma.users.findFirst({
@@ -24,11 +26,18 @@ async function findEmail(email) {
     },
   });
 }
-
+async function findUserById(userId) {
+  return prisma.users.findFirst({
+    where: {
+      id: userId,
+    },
+  });
+}
 const userRepository = {
   create,
   createSession,
-  findEmail
+  findEmail,
+  findUserById,
 };
 
 export default userRepository;

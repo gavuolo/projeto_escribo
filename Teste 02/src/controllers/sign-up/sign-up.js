@@ -5,11 +5,12 @@ export async function userPost(req, res, next) {
   const { email, senha, nome } = req.body;
   const telefones = req.body.telefones
   try {
+
     const user = await createUser({
       email,
       senha,
       nome,
-      telefones,
+      telefones, 
     });
     console.log(user)
     return res.status(httpStatus.CREATED).send({
@@ -20,6 +21,7 @@ export async function userPost(req, res, next) {
       "token": user.token.token
     });
   } catch (error) {
+    console.log(error)
     return res.status(httpStatus.CONFLICT).send(error);
   }
 }
