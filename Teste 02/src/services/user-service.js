@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import userRepository from "../repositories/user-repository.js";
 import jwt from 'jsonwebtoken';
 import duplicatedEmailError from "../errors/duplicate-email-error.js";
+import invalidUser from "../errors/ivalid-user-error.js";
 
 export async function createUser({ email, senha, nome, telefones }) {
   const validateEmail = await findEmail(email)
@@ -23,7 +24,7 @@ async function createToken(user){
 export async function sessionPost(email, senha){
   const user = await findEmail(email)
   if(!user){
-    throw new Error("E-mail não cadastrado")
+    throw invalidUser()
   }
   await validatePassword(senha, user.senha)
   const token = await createToken(user)    
@@ -42,7 +43,7 @@ async function findEmail(email){
 async function validatePassword(senha, userSenha){
   const passwordValidation = await bcrypt.compare(senha, userSenha)
   if(!passwordValidation){
-     throw new Error("Senha errada")
+     throw invalidUser()
   }
 }
 

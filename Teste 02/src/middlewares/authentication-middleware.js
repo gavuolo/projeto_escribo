@@ -9,7 +9,6 @@ export default async function authenticateToken(req, res, next){
         return res.status(httpStatus.UNAUTHORIZED).send("Não autorizado, sem token")
     }
     const token = authHeader.split(' ')[1];
-    console.log(token)
     if(!token){
         return res.status(httpStatus.UNAUTHORIZED).send("Não autorizado, sem token")
     }
@@ -21,7 +20,6 @@ export default async function authenticateToken(req, res, next){
                 token,
             },
         });
-        console.log(session)
         if (!session){
             return res.status(httpStatus.UNAUTHORIZED).send("Não autorizado, nao tem sessao")
         }
@@ -29,7 +27,6 @@ export default async function authenticateToken(req, res, next){
         req.userId = userId;
         return next()
     }catch(error){
-        console.log(error)
-        return res.status(httpStatus.UNAUTHORIZED).send(error)
+        return res.status(httpStatus.UNAUTHORIZED).send("Não autorizado")
     }
 }

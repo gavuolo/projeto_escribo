@@ -15,13 +15,16 @@ export async function signIn(req, res, next) {
 
     })
   }catch(error){
-    return res.status(httpStatus.UNAUTHORIZED).send(error.message)
+    if(error.name === "InvalidUser"){
+      return res.status(httpStatus.UNAUTHORIZED).send(error.message)
+    }
+    return res.status(httpStatus.UNAUTHORIZED).send(error)
   }
 }
 
 export async function getSignIn(req, res, next){
   const { userId } = req
-  console.log(userId)
+  console.log("ID DO USUÁRIO QUE VEM DA REQUISIÇÃO",userId)
   try{
     const info = await getUser(userId)
     return res.status(httpStatus.OK).send({
@@ -32,7 +35,6 @@ export async function getSignIn(req, res, next){
       "token": info.token,
     })
   }catch(error){
-    console.log(error)
     next(error)
   }
 }
