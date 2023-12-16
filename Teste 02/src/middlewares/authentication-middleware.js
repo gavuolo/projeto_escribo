@@ -13,7 +13,6 @@ export default async function authenticateToken(req, res, next){
     if(!token){
         return res.status(httpStatus.UNAUTHORIZED).send("Não autorizado, sem token")
     }
-    console.log(process.env.JWT_SECRET)
     try{
         const { userId } = jwt.verify(token, process.env.JWT_SECRET)
        

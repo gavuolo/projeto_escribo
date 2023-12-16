@@ -2,10 +2,16 @@
 import bcrypt from "bcrypt";
 import userRepository from "../repositories/user-repository.js";
 import jwt from 'jsonwebtoken';
+import duplicatedEmailError from "../errors/duplicate-email-error.js";
 
 export async function createUser({ email, senha, nome, telefones }) {
+  const validateEmail = await findEmail(email)
+  if(validateEmail){
+    throw duplicatedEmailError()
+  }
   const hashedPassword = await bcrypt.hash(senha, 12);
   const user = await userRepository.create(email, hashedPassword, nome, telefones);
+ 
   const token = await createToken(user)
   return {user, token};
 }
@@ -16,8 +22,9 @@ async function createToken(user){
 }
 export async function sessionPost(email, senha){
   const user = await findEmail(email)
-  console.log(user.id)
-  
+  if(!user){
+    throw new Error("E-mail não cadastrado")
+  }
   await validatePassword(senha, user.senha)
   const token = await createToken(user)    
   const response = {

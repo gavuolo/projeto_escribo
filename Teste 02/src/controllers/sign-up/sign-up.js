@@ -12,8 +12,7 @@ export async function userPost(req, res, next) {
       nome,
       telefones, 
     });
-    console.log(user)
-    return res.status(httpStatus.CREATED).send({
+    return res.status(httpStatus.CREATED).json({
       "id": user.user.id,
       "data_criacao": user.user.createdAt,
       "data_atualizacao": user.user.updatedAt,
@@ -21,7 +20,9 @@ export async function userPost(req, res, next) {
       "token": user.token.token
     });
   } catch (error) {
-    console.log(error)
+    if(error.name === 'DuplicatedEmailError'){
+      return res.status(httpStatus.CONFLICT).send(error.message);
+    }
     return res.status(httpStatus.CONFLICT).send(error);
   }
 }
