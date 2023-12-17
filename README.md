@@ -8,7 +8,7 @@ inteiros divisíveis por 3 ou 5 que sejam inferiores ao número passado.
 Projeto realizado em Node.js.
 1. Clone o repositório
  ```bash
-    git clone https://github.com/your-username/your-repository.git
+    git clone git@github.com:gavuolo/projeto_escribo.git
  ```
 2. Insira o número desejado no console.log da função
 3. Rode o código
@@ -24,7 +24,7 @@ Projeto realizado em Node.js.
 
 1. Clonar o Projeto
 ```bash
-git clone git@github.com:gavuolo/projeto22-autoral-back-end.git
+git clone git@github.com:gavuolo/projeto_escribo.git
 ```
 
 2. Intalar dependências
