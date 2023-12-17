@@ -15,5 +15,7 @@ Projeto realizado em Node.js.
 
 
 ## TESTE 02
+<h4>Deloy</h4>
+<li>https://escribo-projeto.onrender.com</li>
 <h4>📂 Documentação </h4>
 <li>https://mammoth-hoof-aba.notion.site/PagWay-2441952e92a741fe8d6ac290cf6695dc?pvs=4](https://mammoth-hoof-aba.notion.site/Escribo-2441952e92a741fe8d6ac290cf6695dc</li>
